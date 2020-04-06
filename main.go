@@ -17,6 +17,7 @@ var (
 
 var (
 	jsonOutput = kingpin.Flag("json", "Output json").Short('j').Bool()
+	useTest    = kingpin.Flag("test", "Use `go test`").Bool()
 	buildTags  = kingpin.Flag("tags", "Build tags").String()
 	packages   = kingpin.Arg("packages", "Packages to build").String()
 )
@@ -24,7 +25,7 @@ var (
 func main() {
 	kingpin.Version(fmt.Sprintf("%s (%s)", version, commit))
 	kingpin.Parse()
-	weight := pkg.NewGoWeight()
+	weight := pkg.NewGoWeight(*useTest)
 	if *buildTags != "" {
 		weight.BuildCmd = append(weight.BuildCmd, "-tags", *buildTags)
 	}

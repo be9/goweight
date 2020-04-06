@@ -52,9 +52,21 @@ type GoWeight struct {
 	BuildCmd []string
 }
 
-func NewGoWeight() *GoWeight {
+func NewGoWeight(useTest bool) *GoWeight {
+	var baseCommand string
+	if useTest {
+		baseCommand = "test"
+	} else {
+		baseCommand = "build"
+	}
+
+	cmd := []string{"go", baseCommand, "-o", "goweight-bin-target", "-work", "-a"}
+	if useTest {
+		cmd = append(cmd, "-c")
+	}
+
 	return &GoWeight{
-		BuildCmd: []string{"go", "build", "-o", "goweight-bin-target", "-work", "-a"},
+		BuildCmd: cmd,
 	}
 }
 
