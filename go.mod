@@ -1,4 +1,4 @@
-module github.com/jondot/goweight
+module github.com/be9/goweight
 
 go 1.14
 
